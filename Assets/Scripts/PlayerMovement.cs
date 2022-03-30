@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator anim;
 
     private BoxCollider2D coll;
 
@@ -14,11 +15,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
 
+    private enum MovementState { idle, walking, jumping, falling }
+
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,6 +39,33 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x * Time.deltaTime, jumpForce);
         }
+
+        UpdateAnimationState();
+    }
+
+    private void UpdateAnimationState()
+    {
+        MovementState state;
+
+        if (dirX != 0f)
+        {
+            state = MovementState.walking;
+        }
+        else
+        {
+            state = MovementState.idle;
+        }
+
+        if (rb.velocity.y > .1f)
+        {
+            state = MovementState.jumping;
+        }
+        else if (rb.velocity.y < -.1f)
+        {
+            state = MovementState.falling;
+        }
+
+        anim.SetInteger("state", (int)state);
     }
 
     private bool IsGrounded()
