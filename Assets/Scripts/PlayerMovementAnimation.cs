@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerMovementAnimation : MonoBehaviour
 {
 
     private Rigidbody2D rb;
@@ -10,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private float dirX = 0f;
 
-    private enum MovementState { idle, walking, jumping, falling }
+    private enum MovementState { idle, walking, jumping, falling, hurt }
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +53,7 @@ public class PlayerAnimation : MonoBehaviour
 
         anim.SetInteger("state", (int)state);
     }
+
     void ResolveLookDirection()
     {
 
