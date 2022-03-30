@@ -7,6 +7,7 @@ TagManager:
   - RespawnTrigger
   - Key
   - JumpPad
+  - Enemy
   layers:
   - Default
   - TransparentFX
