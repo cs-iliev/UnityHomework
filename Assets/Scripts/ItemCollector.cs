@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    private int keys = 0;
+
+    private const int MAX_KEYS = 3;
+    [SerializeField] private GameObject[] keyBar = new GameObject[MAX_KEYS];
+
+    private int collectedKeys = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Key"))
         {
             Destroy(collision.gameObject);
-            keys++;
-            Debug.Log("Keys: " + keys);
+
+            keyBar[collectedKeys++].GetComponent<Animator>().SetTrigger("keyCollected");
+            Debug.Log("Keys: " + collectedKeys);
         }
     }
 }

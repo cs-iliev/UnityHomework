@@ -51,3 +51,6 @@ TagManager:
   - name: Terrain
     uniqueID: 864253537
     locked: 0
+  - name: HUD
+    uniqueID: 4048490723
+    locked: 0
